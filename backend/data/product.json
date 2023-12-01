@@ -1,0 +1,50 @@
+[
+    {
+        "name":"6Feet wardrobe",
+        "price" : 12000.0,
+        "description": "This ward robe is made up of 18 guage thick steel",
+        "ratings": 0,
+        "images": [
+            {
+                "image": "product1.jpg"
+            }
+        ],
+        "category": "wardrobe",
+        "seller": "JBR STEELS",
+        "stock": 5,
+        "numOfReviews": 15,
+        "reviews": []
+    },
+    {
+        "name":"4.5 Feet wardrobe",
+        "price" : 8000.0,
+        "description": "This ward robe is made up of 20 guage thick steel",
+        "ratings": 0,
+        "images": [
+            {
+                "image": "product2.jpg"
+            }
+        ],
+        "category": "wardrobe",
+        "seller": "JBR STEELS",
+        "stock": 10,
+        "numOfReviews": 5,
+        "reviews": []
+    },
+    {
+        "name":"King size cot",
+        "price" : 7500.0,
+        "description": "this Cot is made up of square pipes",
+        "ratings": 0,
+        "images": [
+            {
+                "image": "product3.jpg"
+            }
+        ],
+        "category": "steel cot",
+        "seller": "JBR STEELS",
+        "stock": 7,
+        "numOfReviews": 12,
+        "reviews": []
+    }
+]
