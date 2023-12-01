@@ -46,5 +46,37 @@
         "stock": 7,
         "numOfReviews": 12,
         "reviews": []
+    },
+    {
+        "name":"Study Table chair set",
+        "price" : 2500.0,
+        "description": "this set of table and chair is used for school and collages",
+        "ratings": 0,
+        "images": [
+            {
+                "image": "product4.jpg"
+            }
+        ],
+        "category": "school desk bench",
+        "seller": "JBR STEELS",
+        "stock": 20,
+        "numOfReviews": 3,
+        "reviews": []
+    },
+    {
+        "name":"EB Panel Board",
+        "price" : 20000.0,
+        "description": "Industry level Panel Boards with wiring",
+        "ratings": 0,
+        "images": [
+            {
+                "image": "product5.jpg"
+            }
+        ],
+        "category": "electric panel board",
+        "seller": "JBR STEELS",
+        "stock": 1,
+        "numOfReviews": 6,
+        "reviews": []
     }
 ]
