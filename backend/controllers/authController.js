@@ -43,3 +43,54 @@ exports.loginUser = catchAsyncError(async(req,res,next)=>{
      }
      sendToken(user,201,res)
 })
+
+
+exports.logoutUser=(req,res,next)=>{
+     res.cookie('token',null,{
+          expires:new Date(Date.now()),
+          httpOnly: true
+     })
+     .status(200)
+     .json({
+          success: true,
+          message:"loggedout"
+     })
+}
+
+exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
+     const user = await User.findOne({email:req.body.email});
+
+     if(!user)
+     {
+          return next(new errorHandler('User not found with this email',404));
+     }
+
+     const resetToken = user.getResetToken();
+     await user.save({validateBeforesave: false})
+
+     //create reset URL
+     const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`;
+
+     const message = `Your password reset URL is as follows \n\n ${resetUrl} \n\n If you have not requested this mail ,Please ignore it.`;
+
+     try{
+          sendEmail({
+               email: user.email,
+               subject: "JBR Steel Password recovery",
+               message
+          })
+
+          res.status(200).json({
+               success: true,
+               message: `Email sent to ${user.email}`
+          })
+     }
+     catch(error)
+     {
+          user.resetPasswordToken = undefined;
+          user.resetPasswordTokenExpire = undefined;
+          await user.save({validateBeforesave: false});
+          return next(new errorHandler(error.message),500)
+     }
+
+})
