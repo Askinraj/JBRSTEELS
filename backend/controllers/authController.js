@@ -1,7 +1,9 @@
 const catchAsyncError = require("../middlewares/catchAsyncError")
 const User = require('../models/userModel')
+const sendEmail = require("../utils/email")
 const errorHandler = require('../utils/errorHandler')
 const sendToken = require('../utils/jwt')
+
 
 exports.registerUser = catchAsyncError(async (req,res,next)=>{
     const {name,email,password,avatar} = req.body;
@@ -58,7 +60,8 @@ exports.logoutUser=(req,res,next)=>{
 }
 
 exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
-     const user = await User.findOne({email:req.body.email});
+    
+     const user = await User.findOne({email: req.body.email});
 
      if(!user)
      {
@@ -74,6 +77,7 @@ exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
      const message = `Your password reset URL is as follows \n\n ${resetUrl} \n\n If you have not requested this mail ,Please ignore it.`;
 
      try{
+          
           sendEmail({
                email: user.email,
                subject: "JBR Steel Password recovery",
