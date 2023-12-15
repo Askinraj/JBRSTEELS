@@ -3,8 +3,9 @@ const User = require('../models/userModel')
 const sendEmail = require("../utils/email")
 const errorHandler = require('../utils/errorHandler')
 const sendToken = require('../utils/jwt')
+const crypto = require('crypto');
 
-
+//register   /api/v1/register
 exports.registerUser = catchAsyncError(async (req,res,next)=>{
     const {name,email,password,avatar} = req.body;
    const user = await User.create({
@@ -22,6 +23,7 @@ exports.registerUser = catchAsyncError(async (req,res,next)=>{
    sendToken(user,201,res);
 });
 
+//login  /api/v1/login
 exports.loginUser = catchAsyncError(async(req,res,next)=>{
      const {email,password} = req.body;
 
@@ -46,7 +48,7 @@ exports.loginUser = catchAsyncError(async(req,res,next)=>{
      sendToken(user,201,res)
 })
 
-
+//logout /api/v1/logout
 exports.logoutUser=(req,res,next)=>{
      res.cookie('token',null,{
           expires:new Date(Date.now()),
@@ -59,6 +61,7 @@ exports.logoutUser=(req,res,next)=>{
      })
 }
 
+//forgotPassword    /api/v1/password/forgot
 exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
     
      const user = await User.findOne({email: req.body.email});
@@ -97,4 +100,43 @@ exports.forgotPassword = catchAsyncError(async(req,res,next)=>{
           return next(new errorHandler(error.message),500)
      }
 
+})
+
+//resetPassword   /api/v1/password/reset/:token
+exports.resetPassword = catchAsyncError(async(req,res,next)=>{
+     //console.log('Request body:', req.body);
+     const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+     const user =await User.findOne({
+          resetPasswordToken,
+          resetPasswordTokenExpire:{
+               $gt :Date.now()
+          }
+     })
+
+     if(!user)
+     {
+          return next(new errorHandler('Password token is invalid or expired'));
+     }
+
+     if(req.body.password !== req.body.confirmPassword)
+     {
+          return next(new errorHandler('The entered Password does not match'));
+     }
+     user.password = req.body.password;
+     user.resetPasswordToken = undefined;
+     user.resetPasswordTokenExpire = undefined;
+     await user.save({validateBeforesave: false})
+
+     sendToken(user, 201, res)
+})
+
+//Get User Profile
+
+exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
+     const user = await User.findById(req.user.id)
+     res.status(200).json({
+          success: true,
+          user
+     })
 })
