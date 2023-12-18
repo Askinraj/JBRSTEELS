@@ -19,28 +19,34 @@ module.exports = (err,req,res,next) =>{
         {
             message = Object.values(err.errors).map(value => value.message)   //in JVL code he used all message fields as seperate variable ex: var message
             error = new Error(message)
+            err.statusCode = 400
+            
         }
         if(err.name == 'CastError')
         {
             message = `The Resource not Found : ${err.path}`
             error = new Error(message)
+            err.statusCode = 400
         }
         if(err.code == 11000)
         {
              message = `Duplicate ${Object.keys(err.keyValue)} error`
             error = new Error(message)
+            err.statusCode = 400
         }
 
         if(err.name == 'JSONWebTokenError')
         {
             message = `JSON web token is invalid.Try again`
             error = new Error(message)
+            err.statusCode = 400
         }
 
         if(err.name == 'TokenExpiredError')
         {
             message = `JSON web token is expired.Try again`
             error = new Error(message)
+            err.statusCode = 400
         }
 
         res.status(err.statusCode).json({

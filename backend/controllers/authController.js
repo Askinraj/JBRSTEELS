@@ -1,6 +1,7 @@
 const catchAsyncError = require("../middlewares/catchAsyncError")
 const User = require('../models/userModel')
 const sendEmail = require("../utils/email")
+const ErrorHandler = require("../utils/errorHandler")
 const errorHandler = require('../utils/errorHandler')
 const sendToken = require('../utils/jwt')
 const crypto = require('crypto');
@@ -131,7 +132,7 @@ exports.resetPassword = catchAsyncError(async(req,res,next)=>{
      sendToken(user, 201, res)
 })
 
-//Get User Profile
+//Get User Profile  -/api/v1/myprofile
 
 exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
      const user = await User.findById(req.user.id)
@@ -139,4 +140,46 @@ exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
           success: true,
           user
      })
+})
+
+
+//Change Password      -/api/v1/login
+
+exports.changePassword = catchAsyncError(async(req,res,next)=>{
+     const user = await User.findById(req.user.id).select('+password');
+
+     //Check Old Password
+     if(!await user.isValidPassword(req.body.oldPassword))
+     {
+          return next(new ErrorHandler('The Old password is incorrect',404));
+     }
+
+     //assigning new Password
+     user.password = req.body.password;
+     await user.save();
+     res.status(200).json({
+          success: true,
+          user
+     })
+})
+
+
+//Update Profile
+
+exports.updateProfile = catchAsyncError(async(req,res,next)=>{
+     const newUserData ={
+          name: req.body.name,
+          email:req.body.email
+     }
+     const user = await User.findByIdAndUpdate(req.user.id,newUserData,{
+          new:true,
+          runValidators:true
+     })
+
+     res.status(200).json({
+          success:true,
+          user
+     })
+
+
 })
