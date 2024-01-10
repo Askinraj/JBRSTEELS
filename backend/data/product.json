@@ -3,10 +3,13 @@
         "name":"6Feet wardrobe",
         "price" : 12000.0,
         "description": "This ward robe is made up of 18 guage thick steel",
-        "ratings": 0,
+        "ratings": 4.5,
         "images": [
             {
-                "image": "product1.jpg"
+                "image": "/images/products/1.jpg"
+            },
+            {
+                "image": "/images/products/2.jpg"
             }
         ],
         "category": "wardrobe",
@@ -19,10 +22,10 @@
         "name":"4.5 Feet wardrobe",
         "price" : 8000.0,
         "description": "This ward robe is made up of 20 guage thick steel",
-        "ratings": 0,
+        "ratings":1.5,
         "images": [
             {
-                "image": "product2.jpg"
+                "image": "/images/products/2.jpg"
             }
         ],
         "category": "wardrobe",
@@ -35,10 +38,10 @@
         "name":"King size cot",
         "price" : 7500.0,
         "description": "this Cot is made up of square pipes",
-        "ratings": 0,
+        "ratings": 3,
         "images": [
             {
-                "image": "product3.jpg"
+                "image": "/images/products/3.jpg"
             }
         ],
         "category": "steel cot",
@@ -51,10 +54,10 @@
         "name":"Study Table chair set",
         "price" : 2500.0,
         "description": "this set of table and chair is used for school and collages",
-        "ratings": 0,
+        "ratings": 5,
         "images": [
             {
-                "image": "product4.jpg"
+                "image": "/images/products/4.jpg"
             }
         ],
         "category": "school desk bench",
@@ -70,7 +73,7 @@
         "ratings": 0,
         "images": [
             {
-                "image": "product5.jpg"
+                "image":  "/images/products/5.jpg"
             }
         ],
         "category": "electric panel board",
