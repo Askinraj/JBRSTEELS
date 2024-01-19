@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const productSlice  = createSlice({
     name: 'product',
     initialState: {
-        loading: false
+        loading: false,
+        product:{}
     },
     reducers: {
         productRequest(state,action){
@@ -14,7 +15,7 @@ const productSlice  = createSlice({
         productSuccess(state,action){
             return{
                 loading :false,
-                products: action.payload.products
+                product: action.payload.product
             }
         },
         productFail(state,action){
