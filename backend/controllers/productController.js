@@ -4,19 +4,21 @@ const catchAsyncError = require('../middlewares/catchAsyncError');
 const APIFeatures = require("../utils/apiFeatures");
 
 // getProducts              /api/v1/products
-exports.getProducts = async(req,res,next)=>{
+exports.getProducts =catchAsyncError(async(req,res,next)=>{
     //const resPerPage = 2;
     const resPerPage = 3;
     const apiFeatures = new APIFeatures(Product.find(),req.query).search().filter().paginate(resPerPage);
     const products = await apiFeatures.query;
+    const totalProductsCount = await Product.countDocuments({});
     //await new Promise(resolve=>setTimeout(resolve,3000))    //for delayed response
     //return next(new ErrorHandler('Unable to send Products!',400))    //to check tostify react
     res.status(200).json({
         success:true,
-        count:products.length,
+        count:totalProductsCount,
+        resPerPage,
         products
     })
-}
+})
 
 //Create Product         /api/v1//product/new
 exports.newProduct = catchAsyncError(async(req,res,next) => {
