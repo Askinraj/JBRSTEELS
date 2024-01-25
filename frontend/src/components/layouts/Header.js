@@ -1,12 +1,15 @@
 import React from 'react'
 import Search from './Search'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
     <nav className="navbar row">
       <div className="col-12 col-md-3">
         <div className="navbar-brand">
+          <Link to="/">
           <img width="150px" alt="JBR Steels" src="/images/logo.png" />
+          </Link>
         </div>
       </div>
 

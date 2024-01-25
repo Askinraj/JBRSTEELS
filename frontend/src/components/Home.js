@@ -22,7 +22,7 @@ export default function Home (){
         {
         return toast.error(error,{position:toast.POSITION.BOTTOM_CENTER})
         }
-        dispath(getProducts(currentPage))
+        dispath(getProducts(null,null,null,null,currentPage))
     },[error,dispath,currentPage])
     return(
         <Fragment>
@@ -34,7 +34,7 @@ export default function Home (){
             <section id="products" className="container mt-5">
                 <div className="row">
                     { products && products.map(product => 
-                            <Product product={product}/>
+                            <Product col={3} product={product}/>
                     )}
                 </div>
             </section>
