@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import MetaData from '.././layouts/MetaData';
-import { getProducts } from '../../actions/productsAction';
+import { getProducts } from '../../actions/productAction';
 import Loader from '.././layouts/Loader';
 import Product from '.././product/Product';
 import { toast } from 'react-toastify';
@@ -41,7 +41,7 @@ export default function Home (){
         {
         return toast.error(error,{position:toast.POSITION.BOTTOM_CENTER})
         }
-        dispath(getProducts(keyword,price,category,rating,currentPage))
+        dispath(getProducts(keyword,priceChanged,category,rating,currentPage))
     },[error,dispath,keyword,currentPage,priceChanged,category,rating])
 
     return(
