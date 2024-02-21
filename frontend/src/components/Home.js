@@ -22,7 +22,7 @@ export default function Home (){
         {
         return toast.error(error,{position:toast.POSITION.BOTTOM_CENTER})
         }
-        dispath(getProducts(null,null,null,null,    ))
+        dispath(getProducts(null,null,null,null,currentPage))
     },[error,dispath,currentPage])
     return(
         <Fragment>
